@@ -9,29 +9,29 @@
 import SwiftUI
 
 struct ContentView: View {
+    @ObservedObject var gameState = GameState()
     @State private var selection = 0
  
     var body: some View {
-        TabView(selection: $selection){
-            Text("First View")
-                .font(.title)
+        TabView(selection: $selection) {
+            ScoreboardView()
                 .tabItem {
                     VStack {
-                        Image("first")
-                        Text("First")
+                        Image(systemName: "sunset.fill")
+                        Text("Game on!")
                     }
                 }
                 .tag(0)
-            Text("Second View")
-                .font(.title)
+            LeaderboardView()
                 .tabItem {
                     VStack {
-                        Image("second")
-                        Text("Second")
+                        Image(systemName: "person.2.square.stack.fill")
+                        Text("Leaderboards")
                     }
                 }
                 .tag(1)
         }
+        .environmentObject(gameState)
     }
 }
 

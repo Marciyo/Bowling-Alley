@@ -15,6 +15,10 @@
 		9AD4CC8C2503A0E60036A44C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AD4CC8A2503A0E60036A44C /* LaunchScreen.storyboard */; };
 		9AD4CC972503A0E60036A44C /* Bowling_AlleyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD4CC962503A0E60036A44C /* Bowling_AlleyTests.swift */; };
 		9AD4CCA22503A0E60036A44C /* Bowling_AlleyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD4CCA12503A0E60036A44C /* Bowling_AlleyUITests.swift */; };
+		9AD4CCB02503C3A90036A44C /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD4CCAF2503C3A80036A44C /* Colors.swift */; };
+		9AD4CCB32503C5A40036A44C /* NewGamePopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD4CCB22503C5A40036A44C /* NewGamePopupView.swift */; };
+		9AD4CCB52503E25C0036A44C /* LeaderboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD4CCB42503E25C0036A44C /* LeaderboardView.swift */; };
+		9AD4CCB72503E2B90036A44C /* ScoreboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD4CCB62503E2B90036A44C /* ScoreboardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +53,10 @@
 		9AD4CC9D2503A0E60036A44C /* Bowling AlleyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Bowling AlleyUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AD4CCA12503A0E60036A44C /* Bowling_AlleyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bowling_AlleyUITests.swift; sourceTree = "<group>"; };
 		9AD4CCA32503A0E60036A44C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9AD4CCAF2503C3A80036A44C /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		9AD4CCB22503C5A40036A44C /* NewGamePopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGamePopupView.swift; sourceTree = "<group>"; };
+		9AD4CCB42503E25C0036A44C /* LeaderboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardView.swift; sourceTree = "<group>"; };
+		9AD4CCB62503E2B90036A44C /* ScoreboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreboardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,10 +110,14 @@
 				9AD4CC7F2503A0DB0036A44C /* AppDelegate.swift */,
 				9AD4CC812503A0DB0036A44C /* SceneDelegate.swift */,
 				9AD4CC832503A0DB0036A44C /* ContentView.swift */,
+				9AD4CCB22503C5A40036A44C /* NewGamePopupView.swift */,
 				9AD4CC852503A0E60036A44C /* Assets.xcassets */,
 				9AD4CC8A2503A0E60036A44C /* LaunchScreen.storyboard */,
 				9AD4CC8D2503A0E60036A44C /* Info.plist */,
 				9AD4CC872503A0E60036A44C /* Preview Content */,
+				9AD4CCB12503C48B0036A44C /* Extensions */,
+				9AD4CCB42503E25C0036A44C /* LeaderboardView.swift */,
+				9AD4CCB62503E2B90036A44C /* ScoreboardView.swift */,
 			);
 			path = "Bowling Alley";
 			sourceTree = "<group>";
@@ -134,6 +146,14 @@
 				9AD4CCA32503A0E60036A44C /* Info.plist */,
 			);
 			path = "Bowling AlleyUITests";
+			sourceTree = "<group>";
+		};
+		9AD4CCB12503C48B0036A44C /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				9AD4CCAF2503C3A80036A44C /* Colors.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -268,7 +288,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				9AD4CC802503A0DB0036A44C /* AppDelegate.swift in Sources */,
+				9AD4CCB32503C5A40036A44C /* NewGamePopupView.swift in Sources */,
+				9AD4CCB02503C3A90036A44C /* Colors.swift in Sources */,
 				9AD4CC822503A0DB0036A44C /* SceneDelegate.swift in Sources */,
+				9AD4CCB72503E2B90036A44C /* ScoreboardView.swift in Sources */,
+				9AD4CCB52503E25C0036A44C /* LeaderboardView.swift in Sources */,
 				9AD4CC842503A0DB0036A44C /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

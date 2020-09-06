@@ -11,24 +11,31 @@ import XCTest
 
 class Bowling_AlleyTests: XCTestCase {
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    func test_init_Player() throws {
+        let player = Player(name: "Marcel")
+        
+        XCTAssertTrue(player.pinsKnockedByThrowRecord.isEmpty)
+        XCTAssertTrue(player.frameRecord.isEmpty)
+
+        XCTAssertEqual(player.name, "Marcel")
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
+    func test_throwingWithoutKnockingPins() throws {
+        var player = Player(name: "Mierzejewski")
+        
+        player.addThrow(pinsKnocked: 0)
+        player.addThrow(pinsKnocked: 0)
+        player.addThrow(pinsKnocked: 0)
+        player.addThrow(pinsKnocked: 0)
+        player.addThrow(pinsKnocked: 0)
+        player.addThrow(pinsKnocked: 0)
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
+        XCTAssertFalse(player.pinsKnockedByThrowRecord.isEmpty)
+        XCTAssertFalse(player.frameRecord.isEmpty)
 
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+        let score = player.getScore()
+        XCTAssertEqual(score, 0)
     }
-
+    
+    
 }

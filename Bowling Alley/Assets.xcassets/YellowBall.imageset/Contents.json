@@ -1,0 +1,15 @@
+{
+  "images" : [
+    {
+      "filename" : "Simple_Blue_Bowling_Ball_Illustration_Bowling_Invitation-removebg-preview.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "properties" : {
+    "preserves-vector-representation" : true
+  }
+}
