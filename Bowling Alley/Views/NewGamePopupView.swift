@@ -70,42 +70,6 @@ struct NewGamePopupView_Previews: PreviewProvider {
         Group {
             NewGamePopupView()
                 .previewLayout(.fixed(width: 300, height: 300))
-        
-            //
         }
     }
 }
-//
-//struct LabelButtonStyle: ButtonStyle {
-//    
-//    var scaleAmount: CGFloat
-//
-//    func makeBody(configuration: Self.Configuration) -> some View {
-//        LabelButton(
-//            configuration: configuration,
-//            scaleAmount: scaleAmount
-//        )
-//    }
-//}
-//
-//private extension LabelButtonStyle {
-//    struct LabelButton: View {
-//
-//        @Environment(\.isEnabled) var isEnabled
-//
-//        let configuration: LabelButtonStyle.Configuration
-//        let scaleAmount: CGFloat
-//
-//        var body: some View {
-//            return configuration.label
-//                .font(.title)
-//                .padding()
-//                .background(Color.naplesYellow)
-//                .cornerRadius(16)
-//                
-//                .opacity(configuration.isPressed ? 0.5 : 1.0)
-//                .scaleEffect(configuration.isPressed ? scaleAmount : 1.0)
-//                .foregroundColor(isEnabled ? .smokyBlock : .gray)
-//        }
-//    }
-//}

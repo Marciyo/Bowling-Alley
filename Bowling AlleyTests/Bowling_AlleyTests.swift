@@ -46,7 +46,7 @@ class Bowling_AlleyTests: XCTestCase {
         // Second frame
         rollSpare()
 
-        // Third frame -  needed for spare bonus calculation
+        // Third frame - needed for spare bonus calculation
         player.addRoll(pinsKnocked: 5)
         player.addRoll(pinsKnocked: 0)
 
@@ -62,7 +62,7 @@ class Bowling_AlleyTests: XCTestCase {
         // Second frame
         rollStrike()
 
-        // Third frame -  needed for spare bonus calculation
+        // Third frame - needed for spare bonus calculation
         player.addRoll(pinsKnocked: 5)
         player.addRoll(pinsKnocked: 3)
 
