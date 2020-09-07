@@ -39,7 +39,7 @@ extension GameRecord {
 
 struct Player: Codable {
     var name: String
-    var pinsKnockedByThrowRecord: [Int] = []
+    var pinsKnockedByRollRecord: [Int] = []
     var frameRecord: [Frame] = [] {
         didSet {
             print("Updated frameRecord: \(frameRecord)")
@@ -49,40 +49,82 @@ struct Player: Codable {
 
 extension Player {
     func getScore() -> Int {
-        return 0
+        var roll = 0
+        var spareBonus = 0
+        var strikeBonus = 0
+        
+        for frame in frameRecord.enumerated() {
+            if frame.element.isFrameCompleted {
+                roll += (frame.element.firstShot ?? 0) + (frame.element.secondShot ?? 0)
+            }
+            
+            if frame.element.isStrike {
+                spareBonus += 0
+            } else if frame.element.isSpare {
+                strikeBonus += 0
+            }
+        }
+        
+        return roll + spareBonus + strikeBonus
     }
     
-    mutating func addThrow(pinsKnocked: Int) {
-        pinsKnockedByThrowRecord.append(pinsKnocked)
+    mutating func addRoll(pinsKnocked: Int) {
+        pinsKnockedByRollRecord.append(pinsKnocked)
         
-        
-        if pinsKnockedByThrowRecord.count % 2 != 0 {
-            //First throw
-            if pinsKnocked == 10 {
-                // Strike
-                frameRecord.append(Frame(firstShot: 10))
+        guard let lastFrame = frameRecord.last else {
+            // This is first frame
+            
+            if pinsKnockedByRollRecord.count % 2 != 0 {
+                //First throw
+                if pinsKnocked == 10 {
+                    // Strike
+                    frameRecord.append(Frame(firstShot: 10)) // <-- Adding frame
+                }
+                //Just keep throwing?
+            } else {
+                //Second throw
+                let firstThrow = pinsKnockedByRollRecord[pinsKnockedByRollRecord.count - 2]
+                let secondThrow = pinsKnockedByRollRecord[pinsKnockedByRollRecord.count - 1]
+                
+                frameRecord.append(Frame(firstShot: firstThrow, secondShot: secondThrow)) // <-- Adding frame
             }
-            //Just keep throwing?
-        } else {
-            //Second throw
-            guard let lastThrow = pinsKnockedByThrowRecord.last else {
-                assertionFailure("There should be last throw")
-                return
-            }
             
-            if lastThrow == 10 {
-                //It was strike a turn before. Check frame
-            }
-            
-            
-            let firstThrow = pinsKnockedByThrowRecord[pinsKnockedByThrowRecord.count - 2]
-            let secondThrow = pinsKnockedByThrowRecord[pinsKnockedByThrowRecord.count - 1]
-            
-            frameRecord.append(Frame(firstShot: firstThrow, secondShot: secondThrow))
+            return
         }
+        
+        if lastFrame.isStrike {
+            
+        }
+        
+//
+//        if pinsKnockedByRollRecord.count % 2 != 0 {
+//            //First throw
+//            if pinsKnocked == 10 {
+//                // Strike
+//                frameRecord.append(Frame(firstShot: 10))
+//            }
+//            //Just keep throwing?
+//        } else {
+//            //Second throw
+//            guard let lastThrow = pinsKnockedByRollRecord.last else {
+//                assertionFailure("There should be last throw")
+//                return
+//            }
+//
+//            if lastThrow == 10 {
+//                //It was strike a turn before. Check frame
+//            }
+//
+//
+//            let firstThrow = pinsKnockedByRollRecord[pinsKnockedByRollRecord.count - 2]
+//            let secondThrow = pinsKnockedByRollRecord[pinsKnockedByRollRecord.count - 1]
+//
+//            frameRecord.append(Frame(firstShot: firstThrow, secondShot: secondThrow))
+//        }
         
         
         if frameRecord.count == 10  {
+            assertionFailure("End the game")
             // End the game
             // We are on the last frame and all score has been calculated
         }
@@ -96,8 +138,17 @@ struct Frame: Codable {
 }
 
 extension Frame {
+    var isSpare: Bool {
+        if isStrike { return false }
+        return (firstShot ?? 0) + (secondShot ?? 0) == 10
+    }
+    
+    var isStrike: Bool {
+        (firstShot ?? 0) == 10
+    }
+    
     var isFrameCompleted: Bool {
-        firstShot != nil && secondShot != nil
+        firstShot != nil && secondShot != nil || isStrike
     }
 }
 
