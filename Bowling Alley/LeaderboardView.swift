@@ -39,99 +39,61 @@ extension GameRecord {
 
 struct Player: Codable {
     var name: String
-    var pinsKnockedByRollRecord: [Int] = []
-    var frameRecord: [Frame] = [] {
-        didSet {
-            print("Updated frameRecord: \(frameRecord)")
+    var rolls = [Int](repeating: 0, count: 21)
+    var currentRoll = 0
+}
+
+extension Player {
+    mutating func addRoll(pinsKnocked: Int) {
+        rolls[currentRoll] = pinsKnocked
+        currentRoll += 1
+    }
+    
+    func getScore() -> Int {
+        var score = 0
+        var roll = 0
+        
+        for _ in 1...10 {
+            if isStrike(roll) {
+                score += 10 + strikeBonus(roll)
+                roll += 1
+            } else if isSpare(roll) {
+                score += 10 + spareBonus(roll)
+                roll += 2
+            } else {
+                score += rolls[roll] + rolls[roll + 1]
+                roll += 2
+            }
         }
+        
+        return score
     }
 }
 
 extension Player {
-    func getScore() -> Int {
-        var roll = 0
-        var spareBonus = 0
-        var strikeBonus = 0
-        
-        for frame in frameRecord.enumerated() {
-            if frame.element.isFrameCompleted {
-                roll += (frame.element.firstShot ?? 0) + (frame.element.secondShot ?? 0)
-            }
-            
-            if frame.element.isStrike {
-                spareBonus += 0
-            } else if frame.element.isSpare {
-                strikeBonus += 0
-            }
-        }
-        
-        return roll + spareBonus + strikeBonus
+    private func isStrike(_ roll: Int) -> Bool {
+        rolls[roll] == 10
     }
     
-    mutating func addRoll(pinsKnocked: Int) {
-        pinsKnockedByRollRecord.append(pinsKnocked)
-        
-        guard let lastFrame = frameRecord.last else {
-            // This is first frame
-            
-            if pinsKnockedByRollRecord.count % 2 != 0 {
-                //First throw
-                if pinsKnocked == 10 {
-                    // Strike
-                    frameRecord.append(Frame(firstShot: 10)) // <-- Adding frame
-                }
-                //Just keep throwing?
-            } else {
-                //Second throw
-                let firstThrow = pinsKnockedByRollRecord[pinsKnockedByRollRecord.count - 2]
-                let secondThrow = pinsKnockedByRollRecord[pinsKnockedByRollRecord.count - 1]
-                
-                frameRecord.append(Frame(firstShot: firstThrow, secondShot: secondThrow)) // <-- Adding frame
-            }
-            
-            return
-        }
-        
-        if lastFrame.isStrike {
-            
-        }
-        
-//
-//        if pinsKnockedByRollRecord.count % 2 != 0 {
-//            //First throw
-//            if pinsKnocked == 10 {
-//                // Strike
-//                frameRecord.append(Frame(firstShot: 10))
-//            }
-//            //Just keep throwing?
-//        } else {
-//            //Second throw
-//            guard let lastThrow = pinsKnockedByRollRecord.last else {
-//                assertionFailure("There should be last throw")
-//                return
-//            }
-//
-//            if lastThrow == 10 {
-//                //It was strike a turn before. Check frame
-//            }
-//
-//
-//            let firstThrow = pinsKnockedByRollRecord[pinsKnockedByRollRecord.count - 2]
-//            let secondThrow = pinsKnockedByRollRecord[pinsKnockedByRollRecord.count - 1]
-//
-//            frameRecord.append(Frame(firstShot: firstThrow, secondShot: secondThrow))
-//        }
-        
-        
-        if frameRecord.count == 10  {
-            assertionFailure("End the game")
-            // End the game
-            // We are on the last frame and all score has been calculated
-        }
+    private func isSpare(_ roll: Int) -> Bool {
+        rolls[roll] + rolls[roll + 1] == 10
+    }
+    
+    private func strikeBonus(_ roll: Int) -> Int {
+        rolls[roll + 1] + rolls[roll + 2]
+    }
+    
+    private func spareBonus(_ roll: Int) -> Int {
+        rolls[roll + 2]
     }
 }
 
 struct Frame: Codable {
+    var firstShot: Int?
+    var secondShot: Int?
+}
+
+struct TenthFrame: Codable {
     var firstShot: Int?
     var secondShot: Int?
     var thirdShot: Int?

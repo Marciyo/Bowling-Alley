@@ -16,21 +16,16 @@ class Bowling_AlleyTests: XCTestCase {
     override func setUp() {
         super.setUp()
         player = Player(name: "Marcel Mierzejewski knows TDD")
-        
     }
     
     func test_init_Player() throws {
-        XCTAssertTrue(player.pinsKnockedByRollRecord.isEmpty)
-        XCTAssertTrue(player.frameRecord.isEmpty)
-
         XCTAssertEqual(player.name, "Marcel Mierzejewski knows TDD")
+        XCTAssertEqual(player.currentRoll, 0)
+        XCTAssertEqual(player.rolls.count, 21)
     }
 
     func test_rolling_WithoutKnockingPins() throws {
-        massRoll(knockedPins: 0, times: 8)
-
-        XCTAssertFalse(player.pinsKnockedByRollRecord.isEmpty)
-        XCTAssertFalse(player.frameRecord.isEmpty)
+        massRoll(knockedPins: 0, times: 20)
 
         let score = player.getScore()
         XCTAssertEqual(score, 0)
@@ -49,8 +44,7 @@ class Bowling_AlleyTests: XCTestCase {
         player.addRoll(pinsKnocked: 6)
 
         // Second frame
-        player.addRoll(pinsKnocked: 6)
-        player.addRoll(pinsKnocked: 4)
+        rollSpare()
 
         // Third frame -  needed for spare bonus calculation
         player.addRoll(pinsKnocked: 5)
@@ -66,8 +60,8 @@ class Bowling_AlleyTests: XCTestCase {
         player.addRoll(pinsKnocked: 6)
 
         // Second frame
-        player.addRoll(pinsKnocked: 10)
-        
+        rollStrike()
+
         // Third frame -  needed for spare bonus calculation
         player.addRoll(pinsKnocked: 5)
         player.addRoll(pinsKnocked: 3)
@@ -76,34 +70,44 @@ class Bowling_AlleyTests: XCTestCase {
         XCTAssertEqual(score, 7 + 18 + 8)
     }
     
-    func test_init_Frame() throws {
-        let normalFrame = Frame(firstShot: 4, secondShot: 3)
-        
-        XCTAssertFalse(normalFrame.isSpare)
-        XCTAssertFalse(normalFrame.isStrike)
-        XCTAssertTrue(normalFrame.isFrameCompleted)
+    func test_rolling_UnsettledStrikeBonus() throws {
+        // First frame
+        player.addRoll(pinsKnocked: 1)
+        player.addRoll(pinsKnocked: 6)
 
-        let incompleteFrame = Frame(firstShot: 1)
-        XCTAssertFalse(incompleteFrame.isSpare)
-        XCTAssertFalse(incompleteFrame.isStrike)
-        XCTAssertFalse(incompleteFrame.isFrameCompleted)
+        // Second frame
+        rollStrike()
         
-        let strikeFrame = Frame(firstShot: 10)
-        XCTAssertFalse(strikeFrame.isSpare)
-        XCTAssertTrue(strikeFrame.isStrike)
-        XCTAssertTrue(strikeFrame.isFrameCompleted)
+        // Third frame not finished
+        player.addRoll(pinsKnocked: 2)
+
+        let score = player.getScore()
+        XCTAssertEqual(score, 7 + 12 + 2)
+    }
+    
+    func test_rolling_PerfectGame() throws {
+        massRoll(knockedPins: 10, times: 12)
         
-        let spareFrame = Frame(firstShot: 4, secondShot: 6)
-        XCTAssertFalse(spareFrame.isStrike)
-        XCTAssertTrue(spareFrame.isSpare)
-        XCTAssertTrue(spareFrame.isFrameCompleted)
+        let score = player.getScore()
+        XCTAssertEqual(score, 300)
     }
 }
+
+// MARK: - Helper test functions
 
 extension Bowling_AlleyTests {
     fileprivate func massRoll(knockedPins: Int, times: Int) {
         for _ in 1...times {
             player.addRoll(pinsKnocked: knockedPins)
         }
+    }
+    
+    fileprivate func rollSpare() {
+        player.addRoll(pinsKnocked: 5)
+        player.addRoll(pinsKnocked: 5)
+    }
+    
+    fileprivate func rollStrike() {
+        player.addRoll(pinsKnocked: 10)
     }
 }
