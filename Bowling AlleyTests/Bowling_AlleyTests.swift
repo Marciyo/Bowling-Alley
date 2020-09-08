@@ -151,6 +151,46 @@ class Bowling_AlleyTests: XCTestCase {
         XCTAssertEqual(frames.count, 6)
         XCTAssertFalse(frames[5].isFrameCompleted)
     }
+    
+    func test_init_Frame() throws {
+        let normalFrame = RegularFrame(firstShot: 4, secondShot: 3)
+        XCTAssertFalse(normalFrame.isSpare)
+        XCTAssertFalse(normalFrame.isStrike)
+        XCTAssertTrue(normalFrame.isFrameCompleted)
+
+        let incompleteFrame = RegularFrame(firstShot: 1)
+        XCTAssertFalse(incompleteFrame.isSpare)
+        XCTAssertFalse(incompleteFrame.isStrike)
+        XCTAssertFalse(incompleteFrame.isFrameCompleted)
+        
+        let strikeFrame = RegularFrame(firstShot: 10)
+        XCTAssertFalse(strikeFrame.isSpare)
+        XCTAssertTrue(strikeFrame.isStrike)
+        XCTAssertTrue(strikeFrame.isFrameCompleted)
+        
+        let spareFrame = RegularFrame(firstShot: 4, secondShot: 6)
+        XCTAssertFalse(spareFrame.isStrike)
+        XCTAssertTrue(spareFrame.isSpare)
+        XCTAssertTrue(spareFrame.isFrameCompleted)
+        
+        let incompleteTenthFrame = TenthFrame(firstShot: 6, secondShot: nil, thirdShot: nil)
+        XCTAssertFalse(incompleteTenthFrame.isFrameCompleted)
+        
+        let completeTenthFrame = TenthFrame(firstShot: 6, secondShot: 2, thirdShot: nil)
+        XCTAssertTrue(completeTenthFrame.isFrameCompleted)
+
+        let completeSpareTenthFrame = TenthFrame(firstShot: 6, secondShot: 4, thirdShot: 5)
+        XCTAssertTrue(completeSpareTenthFrame.isFrameCompleted)
+
+        let incompleteSpareTenthFrame = TenthFrame(firstShot: 6, secondShot: 4, thirdShot: nil)
+        XCTAssertFalse(incompleteSpareTenthFrame.isFrameCompleted)
+
+        let incompleteStrikeTenthFrame = TenthFrame(firstShot: 10, secondShot: 4, thirdShot: nil)
+        XCTAssertFalse(incompleteStrikeTenthFrame.isFrameCompleted)
+        
+        let completeStrikeTenthFrame = TenthFrame(firstShot: 10, secondShot: 10, thirdShot: 5)
+        XCTAssertTrue(completeStrikeTenthFrame.isFrameCompleted)
+    }
 }
 
 // MARK: - Helper test functions
