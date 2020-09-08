@@ -11,7 +11,7 @@ import Combine
 
 struct Player: Codable {
     var name: String
-    var rolls = [Int](repeating: 0, count: 21)
+    var rolls = [Int?](repeating: nil, count: 21)
     var currentRoll = 0
 }
 
@@ -33,7 +33,7 @@ extension Player {
                 score += 10 + spareBonus(roll)
                 roll += 2
             } else {
-                score += rolls[roll] + rolls[roll + 1]
+                score += (rolls[roll] ?? 0) + (rolls[roll + 1] ?? 0)
                 roll += 2
             }
         }
@@ -43,19 +43,49 @@ extension Player {
 }
 
 extension Player {
+    func getFrames() -> [Frame] {
+        var frames: [Frame] = []
+        var roll = 0
+
+        for _ in 1...9 {
+            if isStrike(roll) {
+                frames.append(RegularFrame(firstShot: 10))
+                roll += 1
+            } else {
+                let frame = RegularFrame(firstShot: rolls[roll], secondShot: rolls[roll + 1])
+                frames.append(frame)
+                roll += 2
+            }
+            
+            if roll >= currentRoll {
+                return frames
+            }
+        }
+        
+        if isStrike(roll) || isSpare(roll) {
+            frames.append(TenthFrame(firstShot: rolls[roll], secondShot: rolls[roll + 1], thirdShot: rolls[roll + 2]))
+        } else {
+            frames.append(TenthFrame(firstShot: rolls[roll], secondShot: rolls[roll + 1], thirdShot: nil))
+        }
+
+        return frames
+    }
+}
+
+extension Player {
     private func isStrike(_ roll: Int) -> Bool {
         rolls[roll] == 10
     }
     
     private func isSpare(_ roll: Int) -> Bool {
-        rolls[roll] + rolls[roll + 1] == 10
+        (rolls[roll] ?? 0) + (rolls[roll + 1] ?? 0) == 10
     }
     
     private func strikeBonus(_ roll: Int) -> Int {
-        rolls[roll + 1] + rolls[roll + 2]
+        (rolls[roll + 1] ?? 0) + (rolls[roll + 2] ?? 0)
     }
     
     private func spareBonus(_ roll: Int) -> Int {
-        rolls[roll + 2]
+        rolls[roll + 2] ?? 0
     }
 }

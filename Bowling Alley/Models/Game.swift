@@ -26,12 +26,17 @@ extension GameRecord {
     }
 }
 
-struct Frame: Codable {
+protocol Frame {
+    var firstShot: Int? { get set }
+    var secondShot: Int? { get set }
+}
+
+struct RegularFrame: Frame, Codable {
     var firstShot: Int?
     var secondShot: Int?
 }
 
-struct TenthFrame: Codable {
+struct TenthFrame: Frame, Codable {
     var firstShot: Int?
     var secondShot: Int?
     var thirdShot: Int?

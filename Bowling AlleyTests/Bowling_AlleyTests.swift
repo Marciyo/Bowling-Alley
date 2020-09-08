@@ -91,6 +91,66 @@ class Bowling_AlleyTests: XCTestCase {
         let score = player.getScore()
         XCTAssertEqual(score, 300)
     }
+    
+    func test_frameGeneration_NoPinsKnocked() throws {
+        massRoll(knockedPins: 0, times: 20)
+        
+        let frames = player.getFrames()
+        XCTAssertEqual(frames.count, 10)
+        XCTAssertEqual(frames.first?.firstShot, 0)
+        XCTAssertEqual(frames.first?.secondShot, 0)
+        
+        let tenthFrame = frames[9] as? TenthFrame
+        XCTAssertNotNil(tenthFrame)
+        XCTAssertEqual(tenthFrame?.firstShot, 0)
+        XCTAssertEqual(tenthFrame?.secondShot, 0)
+        XCTAssertNil(tenthFrame?.thirdShot)
+    }
+    
+    func test_frameGeneration_AllPinsKnocked() throws {
+        massRoll(knockedPins: 10, times: 12)
+        
+        let frames = player.getFrames()
+        XCTAssertEqual(frames.count, 10)
+        
+        XCTAssertEqual(frames.first?.firstShot, 10)
+        XCTAssertNil(frames.first?.secondShot)
+        
+        let tenthFrame = frames[9] as? TenthFrame
+        XCTAssertNotNil(tenthFrame)
+        XCTAssertEqual(tenthFrame?.firstShot, 10)
+        XCTAssertEqual(tenthFrame?.secondShot, 10)
+        XCTAssertEqual(tenthFrame?.thirdShot, 10)
+    }
+    
+    func test_frameGeneration_AllFramesSpares() throws {
+        massRoll(knockedPins: 5, times: 21)
+        
+        let frames = player.getFrames()
+        XCTAssertEqual(frames.count, 10)
+        
+        let tenthFrame = frames[9] as? TenthFrame
+        XCTAssertNotNil(tenthFrame)
+        XCTAssertEqual(tenthFrame?.firstShot, 5)
+        XCTAssertEqual(tenthFrame?.secondShot, 5)
+        XCTAssertEqual(tenthFrame?.thirdShot, 5)
+    }
+    
+    func test_frameGeneration_GameNotFinishedYet() throws {
+        massRoll(knockedPins: 2, times: 10)
+        
+        let frames = player.getFrames()
+        XCTAssertEqual(frames.count, 5)
+        XCTAssertTrue(frames[4].isFrameCompleted)
+    }
+    
+    func test_frameGeneration_FrameNotFinishedYet() throws {
+        massRoll(knockedPins: 2, times: 11)
+        
+        let frames = player.getFrames()
+        XCTAssertEqual(frames.count, 6)
+        XCTAssertFalse(frames[5].isFrameCompleted)
+    }
 }
 
 // MARK: - Helper test functions
