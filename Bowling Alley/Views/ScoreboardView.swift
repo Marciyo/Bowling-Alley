@@ -10,6 +10,27 @@ import SwiftUI
 
 struct ScoreboardView: View {
     @EnvironmentObject var gameState: GameState
+    @State private var presentedSheet: Sheet.SheetType?
+
+    private var settingsButton: some View {
+        Button(action: { self.presentedSheet = .settings } ) {
+            Image(systemName: "gear")
+                .style(appStyle: .barButton)
+                .foregroundColor(Color(.label))
+        }
+        .buttonStyle(BorderedBarButtonStyle())
+        .accentColor(Color(.label).opacity(0.1))
+    }
+    
+    private var addRollButton: some View {
+        Button(action: { self.gameState.players[0].addRoll(pinsKnocked: 3) } ) {
+            Image(systemName: "plus")
+                .style(appStyle: .barButton)
+                .foregroundColor(Color(.label))
+        }
+        .buttonStyle(BorderedBarButtonStyle())
+        .accentColor(Color(.label).opacity(0.1))
+    }
     
     var body: some View {
         NavigationView {
@@ -39,12 +60,9 @@ struct ScoreboardView: View {
                 }
                 .padding(8)
                 .navigationBarTitle("Game on!", displayMode: .inline)
-                .navigationBarItems(trailing: Button(action: {
-                    //Display settings screen.
-                }) {
-                    Image(systemName: "gear").foregroundColor(Color.black)
-                })
             }
+            .navigationBarItems(leading: addRollButton, trailing: settingsButton)
+            .sheet(item: $presentedSheet, content: { Sheet(sheetType: $0) })
         }
     }
 }
@@ -54,9 +72,6 @@ struct ScoreboardView_Previews: PreviewProvider {
         Group {
             ScoreboardView()
                 .environmentObject(GameState())
-            
-            FramesColumnView()
-                .previewLayout(.fixed(width: 170, height: 650))
         }
     }
 }

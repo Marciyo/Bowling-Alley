@@ -9,8 +9,16 @@
 import Combine
 import SwiftUI
 
-class GameState: ObservableObject {
-    @Published var players: [Player] = [Player(name: "Marcel"), Player(name: "Klau")]
+final class GameState: ObservableObject {
+    public static let shared = GameState()
+    
+    init() {
+        self.players.append(contentsOf: [Player(name: "Marcel"), Player(name: "Klau")])
+    }
+
+    @Published var players: [Player] = []
+    
+    
 }
 
 struct GameRecord: Codable, Identifiable {
