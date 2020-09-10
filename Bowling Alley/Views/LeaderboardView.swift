@@ -11,6 +11,28 @@ import SwiftUI
 struct LeaderboardView: View {
     @State private var presentedSheet: Sheet.SheetType?
     
+    var body: some View {
+        NavigationView {
+            List {
+                ForEach(0..<20) { row in
+                    Group {
+                        LeaderboardListRow(name: "Player name", date: .distantPast, points: 100 + row)
+//                    Divider()
+                    }
+                }
+            }
+            .listStyle(GroupedListStyle())
+            .environment(\.horizontalSizeClass, .regular)
+            .navigationBarTitle("Leaderboard")
+            .navigationBarItems(leading: shareButton, trailing: aboutButton)
+            .sheet(item: $presentedSheet, content: { Sheet(sheetType: $0) })
+        }
+    }
+}
+
+// MARK: - NavigationBarItems
+
+extension LeaderboardView {
     private var aboutButton: some View {
         Button(action: { self.presentedSheet = .about } ) {
             Image(systemName: "info.circle")
@@ -21,22 +43,14 @@ struct LeaderboardView: View {
         .accentColor(Color(.label).opacity(0.1))
     }
     
-    var body: some View {
-        NavigationView {
-            List {
-                ForEach(0..<20) { row in
-                    Section {
-                        LeaderboardListRow(name: "Player name", date: "03/11/2020", points: 100 + row)
-                        
-                    }
-                }
-            }
-            .listStyle(GroupedListStyle())
-            .environment(\.horizontalSizeClass, .regular)
-            .navigationBarTitle("Leaderboard")
-            .navigationBarItems(trailing: aboutButton)
-            .sheet(item: $presentedSheet, content: { Sheet(sheetType: $0) })
+    private var shareButton: some View {
+        Button(action: { self.presentedSheet = .share(content: [Date()]) } ) {
+            Image(systemName: "square.and.arrow.up.fill")
+                .style(appStyle: .barButton)
+                .foregroundColor(Color(.label))
         }
+        .buttonStyle(BorderedBarButtonStyle())
+        .accentColor(Color(.label).opacity(0.1))
     }
 }
 
@@ -48,8 +62,14 @@ struct LeaderboardView_Previews: PreviewProvider {
 
 struct LeaderboardListRow: View {
     let name: String
-    let date: String
+    let date: Date
     let points: Int
+    
+    static let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        return formatter
+    }()
     
     var body: some View {
         HStack {
@@ -60,7 +80,7 @@ struct LeaderboardListRow: View {
                     Spacer()
                 }
                 HStack {
-                    Text(date)
+                    Text("\(date, formatter: Self.dateFormatter)")
                         .font(.footnote)
                     Spacer()
                 }

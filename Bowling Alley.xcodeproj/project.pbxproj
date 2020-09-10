@@ -26,7 +26,6 @@
 		9AD4CC972503A0E60036A44C /* Bowling_AlleyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD4CC962503A0E60036A44C /* Bowling_AlleyTests.swift */; };
 		9AD4CCA22503A0E60036A44C /* Bowling_AlleyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD4CCA12503A0E60036A44C /* Bowling_AlleyUITests.swift */; };
 		9AD4CCB02503C3A90036A44C /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD4CCAF2503C3A80036A44C /* Colors.swift */; };
-		9AD4CCB32503C5A40036A44C /* NewGamePopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD4CCB22503C5A40036A44C /* NewGamePopupView.swift */; };
 		9AD4CCB52503E25C0036A44C /* LeaderboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD4CCB42503E25C0036A44C /* LeaderboardView.swift */; };
 		9AD4CCB72503E2B90036A44C /* ScoreboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD4CCB62503E2B90036A44C /* ScoreboardView.swift */; };
 /* End PBXBuildFile section */
@@ -74,7 +73,6 @@
 		9AD4CCA12503A0E60036A44C /* Bowling_AlleyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bowling_AlleyUITests.swift; sourceTree = "<group>"; };
 		9AD4CCA32503A0E60036A44C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9AD4CCAF2503C3A80036A44C /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
-		9AD4CCB22503C5A40036A44C /* NewGamePopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGamePopupView.swift; sourceTree = "<group>"; };
 		9AD4CCB42503E25C0036A44C /* LeaderboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardView.swift; sourceTree = "<group>"; };
 		9AD4CCB62503E2B90036A44C /* ScoreboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreboardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -129,7 +127,6 @@
 				9AD4CC832503A0DB0036A44C /* ContentView.swift */,
 				9AD4CCB42503E25C0036A44C /* LeaderboardView.swift */,
 				9AD4CCB62503E2B90036A44C /* ScoreboardView.swift */,
-				9AD4CCB22503C5A40036A44C /* NewGamePopupView.swift */,
 				9A0A055E2509652800977E63 /* SettingsView.swift */,
 				9A0A0564250966D000977E63 /* AboutView.swift */,
 				9A0A05662509671A00977E63 /* ActivityControllerView.swift */,
@@ -346,7 +343,6 @@
 				9AD4CC802503A0DB0036A44C /* AppDelegate.swift in Sources */,
 				9A3ED6622508361F006DFB7A /* FrameCalculation.swift in Sources */,
 				9A0A05672509671A00977E63 /* ActivityControllerView.swift in Sources */,
-				9AD4CCB32503C5A40036A44C /* NewGamePopupView.swift in Sources */,
 				9A3ED66025083615006DFB7A /* ScoreCalculation.swift in Sources */,
 				9AD4CCB02503C3A90036A44C /* Colors.swift in Sources */,
 				9AD4CC822503A0DB0036A44C /* SceneDelegate.swift in Sources */,

@@ -11,7 +11,32 @@ import SwiftUI
 struct ScoreboardView: View {
     @EnvironmentObject var gameState: GameState
     @State private var presentedSheet: Sheet.SheetType?
+    
+    var body: some View {
+        NavigationView {
+            VStack(spacing: 0) {
+                HStack {
+                    if $gameState.players.wrappedValue.count == 2 {
+                        FramesColumnView(playerName: self.gameState.players[0].name)
+                        FramesColumnView(playerName: self.gameState.players[1].name)
+                    } else {
+                        FramesColumnView(playerName: self.gameState.players[0].name)
+                    }
+//                    ForEach(0..<$gameState.players.wrappedValue.count) { row in
+//                    }
+                }
+                .padding(8)
+                .navigationBarTitle("Game on!", displayMode: .inline)
+            }
+            .navigationBarItems(leading: addRollButton, trailing: settingsButton)
+            .sheet(item: $presentedSheet, content: { Sheet(sheetType: $0) })
+        }
+    }
+}
 
+// MARK: - NavigationBarItems
+
+extension ScoreboardView {
     private var settingsButton: some View {
         Button(action: { self.presentedSheet = .settings } ) {
             Image(systemName: "gear")
@@ -31,67 +56,43 @@ struct ScoreboardView: View {
         .buttonStyle(BorderedBarButtonStyle())
         .accentColor(Color(.label).opacity(0.1))
     }
-    
-    var body: some View {
-        NavigationView {
-            VStack(spacing: 0) {
-                HStack {
-                    ForEach(0..<gameState.players.count) { row in
-                        Spacer()
-                        Text(self.gameState.players[row].name)
-                    }
-                }.frame(width: 375, height: 40, alignment: .trailing)
-                
-                HStack {
-                    GeometryReader { geometry in
-                        VStack {
-                            ForEach(0..<10) { row in
-                                Text("\(row + 1)")
-                                    .frame(height: geometry.size.height / 10,
-                                           alignment: .center)
-                            }
-                        }
-                    }
-                    .frame(width: 26)
-                    
-                    ForEach(0..<gameState.players.count) { row in
-                        FramesColumnView()
-                    }
-                }
-                .padding(8)
-                .navigationBarTitle("Game on!", displayMode: .inline)
-            }
-            .navigationBarItems(leading: addRollButton, trailing: settingsButton)
-            .sheet(item: $presentedSheet, content: { Sheet(sheetType: $0) })
-        }
-    }
 }
+
+// MARK: - Previews
 
 struct ScoreboardView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ScoreboardView()
-                .environmentObject(GameState())
+                .environmentObject(GameState.shared)
         }
     }
 }
 
+// MARK: - Frame Views
+
 struct FramesColumnView: View {
+    @EnvironmentObject var gameState: GameState
+    let playerName: String
+    
     var body: some View {
         VStack(alignment: .center, spacing: -1) {
-            ForEach(0..<9) { row in
-                FrameRowView(firstShot: 2, secondShot: 4, total: 6)
+            Text(playerName)
+                .padding()
+            ForEach(gameState.getFrames(for: playerName)) { frame in
+                FrameRowView(frame: frame,
+                             total: self.gameState.getCurrentScore(for: self.playerName))
             }
-            LastFrameRowView(firstShot: 2, secondShot: 4, thirdShot: 1, total: 7)
+//            LastFrameRowView(firstShot: 2, secondShot: 4, thirdShot: 1, finalScore: 7)
+            Spacer()
         }
     }
 }
 
 struct FrameRowView: View {
-    @State var firstShot: Int
-    @State var secondShot: Int
-    @State var total: Int
-    
+    let frame: Frame
+    let total: Int
+        
     var fontSize: CGFloat = 20
     
     var body: some View {
@@ -99,12 +100,12 @@ struct FrameRowView: View {
             GeometryReader { geometry in
                 VStack {
                     HStack(spacing: 0) {
-                        Text("\(self.firstShot)")
+                        Text("\(self.frame.firstShot ?? 99)")
                             .font(.system(size: self.fontSize))
                             .frame(width: geometry.size.width / 2,
                                    height: geometry.size.height / 2,
                                    alignment: .center)
-                        Text("\(self.secondShot)")
+                        Text("\(self.frame.secondShot ?? 99)")
                             .font(.system(size: self.fontSize))
                             .frame(width: geometry.size.width / 2 ,
                                    height: geometry.size.height / 2,
@@ -133,7 +134,7 @@ struct LastFrameRowView: View {
     @State var firstShot: Int
     @State var secondShot: Int
     @State var thirdShot: Int
-    @State var total: Int
+    @State var finalScore: Int
     
     var fontSize: CGFloat = 20
     
@@ -166,7 +167,7 @@ struct LastFrameRowView: View {
                             .border(Color.black, width: 2)
                         
                     }.offset(x: 2)
-                    Text("Total: \(self.total)")
+                    Text("Total: \(self.finalScore)")
                         .font(.system(size: self.fontSize + 2))
                         .fontWeight(.semibold)
                         .frame(width: geometry.size.width,

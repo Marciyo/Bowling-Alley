@@ -10,6 +10,7 @@ import Foundation
 
 extension Player {
     mutating func addRoll(pinsKnocked: Int) {
+        guard currentRoll < rolls.count else { fatalError("Game over.")}
         rolls[currentRoll] = pinsKnocked
         currentRoll += 1
     }
