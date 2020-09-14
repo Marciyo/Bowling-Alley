@@ -28,12 +28,12 @@ extension Frame {
     }
 }
 
-struct RegularFrame: Frame, Codable {
+struct RegularFrame: Frame, Codable, Hashable {
     var firstShot: Int?
     var secondShot: Int?
 }
 
-struct TenthFrame: Frame, Codable {
+struct TenthFrame: Frame, Codable, Hashable {
     var firstShot: Int?
     var secondShot: Int?
     var thirdShot: Int?

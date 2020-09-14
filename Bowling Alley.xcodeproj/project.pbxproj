@@ -17,6 +17,7 @@
 		9A3ED66025083615006DFB7A /* ScoreCalculation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3ED65F25083615006DFB7A /* ScoreCalculation.swift */; };
 		9A3ED6622508361F006DFB7A /* FrameCalculation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3ED6612508361F006DFB7A /* FrameCalculation.swift */; };
 		9A3ED66425083663006DFB7A /* Frame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3ED66325083663006DFB7A /* Frame.swift */; };
+		9A9B7683250F893D0089039D /* ScoreboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9B7682250F893C0089039D /* ScoreboardViewController.swift */; };
 		9AD4CC802503A0DB0036A44C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD4CC7F2503A0DB0036A44C /* AppDelegate.swift */; };
 		9AD4CC822503A0DB0036A44C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD4CC812503A0DB0036A44C /* SceneDelegate.swift */; };
 		9AD4CC842503A0DB0036A44C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD4CC832503A0DB0036A44C /* ContentView.swift */; };
@@ -58,6 +59,7 @@
 		9A3ED65F25083615006DFB7A /* ScoreCalculation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreCalculation.swift; sourceTree = "<group>"; };
 		9A3ED6612508361F006DFB7A /* FrameCalculation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameCalculation.swift; sourceTree = "<group>"; };
 		9A3ED66325083663006DFB7A /* Frame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Frame.swift; sourceTree = "<group>"; };
+		9A9B7682250F893C0089039D /* ScoreboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreboardViewController.swift; sourceTree = "<group>"; };
 		9AD4CC7C2503A0DB0036A44C /* Bowling Alley.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bowling Alley.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AD4CC7F2503A0DB0036A44C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9AD4CC812503A0DB0036A44C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 			children = (
 				9AD4CC832503A0DB0036A44C /* ContentView.swift */,
 				9AD4CCB42503E25C0036A44C /* LeaderboardView.swift */,
+				9A9B7682250F893C0089039D /* ScoreboardViewController.swift */,
 				9AD4CCB62503E2B90036A44C /* ScoreboardView.swift */,
 				9A0A055E2509652800977E63 /* SettingsView.swift */,
 				9A0A0564250966D000977E63 /* AboutView.swift */,
@@ -342,6 +345,7 @@
 				9A0A05632509668B00977E63 /* Sheet.swift in Sources */,
 				9AD4CC802503A0DB0036A44C /* AppDelegate.swift in Sources */,
 				9A3ED6622508361F006DFB7A /* FrameCalculation.swift in Sources */,
+				9A9B7683250F893D0089039D /* ScoreboardViewController.swift in Sources */,
 				9A0A05672509671A00977E63 /* ActivityControllerView.swift in Sources */,
 				9A3ED66025083615006DFB7A /* ScoreCalculation.swift in Sources */,
 				9AD4CCB02503C3A90036A44C /* Colors.swift in Sources */,

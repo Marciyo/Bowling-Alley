@@ -14,22 +14,25 @@ struct ScoreboardView: View {
     
     var body: some View {
         NavigationView {
-            VStack(spacing: 0) {
-                HStack {
-                    if $gameState.players.wrappedValue.count == 2 {
-                        FramesColumnView(playerName: self.gameState.players[0].name)
-                        FramesColumnView(playerName: self.gameState.players[1].name)
-                    } else {
-                        FramesColumnView(playerName: self.gameState.players[0].name)
-                    }
-//                    ForEach(0..<$gameState.players.wrappedValue.count) { row in
+            
+//            VStack(spacing: 0) {
+//                HStack {
+//                    if $gameState.players.wrappedValue.count == 2 {
+//                        FramesColumnView(playerName: self.gameState.players[0].name)
+//                        FramesColumnView(playerName: self.gameState.players[1].name)
+//                    } else {
+//                        FramesColumnView(playerName: self.gameState.players[0].name)
 //                    }
-                }
-                .padding(8)
+////                    ForEach(0..<$gameState.players.wrappedValue.count) { row in
+////                    }
+//                }
+//                .padding(8)
+//            }
+            
+            ScoreboardViewController()
                 .navigationBarTitle("Game on!", displayMode: .inline)
-            }
-            .navigationBarItems(leading: addRollButton, trailing: settingsButton)
-            .sheet(item: $presentedSheet, content: { Sheet(sheetType: $0) })
+                .navigationBarItems(leading: addRollButton, trailing: settingsButton)
+                .sheet(item: $presentedSheet, content: { Sheet(sheetType: $0) })
         }
     }
 }
