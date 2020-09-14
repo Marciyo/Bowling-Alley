@@ -17,7 +17,6 @@ struct LeaderboardView: View {
                 ForEach(0..<20) { row in
                     Group {
                         LeaderboardListRow(name: "Player name", date: .distantPast, points: 100 + row)
-//                    Divider()
                     }
                 }
             }

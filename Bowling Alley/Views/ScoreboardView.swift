@@ -79,8 +79,8 @@ struct FramesColumnView: View {
         VStack(alignment: .center, spacing: -1) {
             Text(playerName)
                 .padding()
-            ForEach(gameState.getFrames(for: playerName)) { frame in
-                FrameRowView(frame: frame,
+            ForEach(0..<gameState.getFrames(for: playerName).count) { frame in
+                FrameRowView(frame: self.gameState.getFrames(for: self.playerName)[frame],
                              total: self.gameState.getCurrentScore(for: self.playerName))
             }
 //            LastFrameRowView(firstShot: 2, secondShot: 4, thirdShot: 1, finalScore: 7)

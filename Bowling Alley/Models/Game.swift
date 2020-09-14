@@ -13,7 +13,7 @@ final class GameState: ObservableObject {
     public static let shared = GameState()
     
     init() {
-        self.players.append(contentsOf: [Player(name: "Marcel"), Player(name: "Klau")])
+        self.players.append(contentsOf: [Player(name: "Marcel"), Player(name: "Not Marcel")])
     }
 
     @Published var players: [Player] = []

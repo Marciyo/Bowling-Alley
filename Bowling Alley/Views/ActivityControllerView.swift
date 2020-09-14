@@ -9,7 +9,6 @@
 import Foundation
 import SwiftUI
 
-#if !os(tvOS)
 public struct ActivityControllerView: UIViewControllerRepresentable {
     
     public let activityItems: [Any]
@@ -20,14 +19,12 @@ public struct ActivityControllerView: UIViewControllerRepresentable {
         self.applicationActivities = applicationActivities
     }
     
-    public func makeUIViewController(context: UIViewControllerRepresentableContext<ActivityControllerView>) -> UIActivityViewController {
+    public func makeUIViewController(context: Context) -> UIActivityViewController {
         return UIActivityViewController(activityItems: activityItems,
                                         applicationActivities: applicationActivities)
     }
     
-    public func updateUIViewController(_ uiViewController: UIActivityViewController,
-                                       context: UIViewControllerRepresentableContext<ActivityControllerView>) {
-        
+    public func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {
+        //
     }
 }
-#endif
