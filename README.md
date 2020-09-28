@@ -25,17 +25,13 @@
 Welcome to **Bowling Alley** iOS project repository!
 
 This is an open-source project for a bowling scoreboard calculator. 
-
-The app is still in the middle of development. I would say that more than 50% is now finished.
-This app will be released to the App Store when finished. Feel free to take a look around the project now!
-
-It was developed with TDD in mind, so that every user journey and every edge case would be covered. 
-Hopefully it will achieve this goal!
+The app was developed with TDD in mind, so that every user journey and every edge case would be covered. 
+Working with SwiftUI really pushed me to discover it's pros and cons. I'll be back and finish the main screen someday.
 
 ##  TODO
 
 *Disclaimer*
-Project is not complete. Probably will be 100% finished in October!
+Project is far from complete. Probably will be finished later date!
 This is the list of tasks that are left to do:
 - Layout for displaying frames,
 - Layout for leaderboard screen,
